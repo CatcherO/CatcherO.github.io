@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="quote.css">
+
+    <title>queote</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="quote-box">
+            <div class="quote-text">
+                <i></i>
+                <span>{{quote.text}}</span>
+            </div>
+            <div class="quote-from">
+                <span>-- {{quote.from}}</span>
+            </div>
+            <div class="buttons">
+                <button class='button' v-on:click='getQuote'>换一个</button>
+            </div>
+        </div>
+        <div class="footer">by liu</div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.js"></script>
+<script>
+
+    var colors = ['#16a085', '#27ae60', '#6e624a', '#b4a83b', '#2c3e50', '#e66a48', '#4a5855', '#e74c3c', '#FB6964', '#342224', '#472E32', '#7d62a1', '#77B1A9', '#966067', '#73A857']
+    // var colors = ['#764036','#e66a48','#b48358','#6e624a','#ffbc98','#cedd7b','#b1a64a','#d9c469','#3e5d4e','#749c7d','#4a5855','#618291','#7d62a1','#8a64a8','#b0526a','#966067']
+    new Vue({
+        el: '#app',
+        data: {
+            quote: { text: '', from: '' },
+
+        },
+        methods: {
+            getQuote: function () {
+                var self = this
+                var xhr = new XMLHttpRequest()
+                xhr.open('get', 'https://v1.hitokoto.cn?type=d')
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        var data = JSON.parse(xhr.responseText)
+
+
+                        $(".quote-text").animate({
+                            opacity: 0
+                        }, 500,
+                            function () {
+                                $(this).animate({
+                                    opacity: 1
+                                }, 500)
+                                self.quote.text = data.hitokoto
+                            })
+
+                        $(".quote-from").animate({
+                            opacity: 0
+                        }, 500,
+                            function () {
+                                $(this).animate({
+                                    opacity: 1
+                                }, 500)
+                                self.quote.from = data.from
+                            })
+
+                        var color = Math.floor(Math.random() * colors.length);
+                        $("html body").animate({
+                            backgroundColor: colors[color],
+                            color: colors[color]
+                        }, 1000);
+                        $(".button").animate({
+                            backgroundColor: colors[color]
+                        }, 1000);
+                    }
+                }
+                xhr.send()
+            }
+        }
+    }).getQuote()
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
