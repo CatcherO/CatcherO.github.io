@@ -4,6 +4,10 @@
     vertical-align:baseline;
 }
 
+[v-cloak] {
+    display: none;
+  }
+  
 body{
     
     color:#16a085;

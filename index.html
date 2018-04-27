@@ -11,14 +11,14 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="quote-box">
-            <div class="quote-text">
+    <div id="app" >
+        <div v-cloak class="quote-box">
+            <div  class="quote-text">
                 <i></i>
-                <span>{{quote.text}}</span>
+                <span >{{quote.text}}</span>
             </div>
             <div class="quote-from">
-                <span>-- {{quote.from}}</span>
+                <span >-- {{quote.from}}</span>
             </div>
             <div class="buttons">
                 <button class='button' v-on:click='getQuote'>换一个</button>
